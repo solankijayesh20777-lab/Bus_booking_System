@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bus_booking_db',
+        'NAME': 'Bus_Booking_System',
         'USER': 'root',
-        'PASSWORD': 'તમારો_mysql_password',
+        'PASSWORD': '12345678',
         'HOST': 'localhost',
         'PORT': '3306',
     }
