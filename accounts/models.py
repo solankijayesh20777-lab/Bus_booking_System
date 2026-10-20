@@ -10,6 +10,7 @@ class Login(models.Model):
 
     class Meta:
         db_table = 'login' # Create a table mysql
+        db_table = 'registration'
 
     def _str_(self):
         return self.username

@@ -1,0 +1,498 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JN Travels | Registration</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf2ff, #f8fbff);
+        }
+
+        .registration-wrapper {
+            min-height: 100vh;
+            padding: 35px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .registration-card {
+            width: 100%;
+            max-width: 1150px;
+            background: #fff;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(10, 45, 90, 0.15);
+        }
+
+        .banner-section {
+            min-height: 750px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(4, 36, 79, 0.88),
+                    rgba(0, 94, 184, 0.72)
+                ),
+                url("https://images.unsplash.com/photo-1570125909232-eb263c188f7e")
+                center / cover no-repeat;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .logo-box {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand-tagline {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #ffd166;
+            font-weight: 700;
+        }
+
+        .banner-heading {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 35px;
+        }
+
+        .banner-description {
+            line-height: 1.8;
+            color: #edf5ff;
+            max-width: 400px;
+            margin: 15px auto 0;
+        }
+
+        .form-section {
+            padding: 45px 50px;
+        }
+
+        .form-title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #092f60;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: #7b8798;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #26374d;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 48px;
+            border: 1px solid #dce4ef;
+            border-radius: 10px;
+            padding: 11px 14px;
+            background: #fbfcff;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #1769c2;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(23, 105, 194, 0.12);
+        }
+
+        .input-group .form-control {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .password-toggle {
+            min-width: 75px;
+            border-radius: 0 10px 10px 0;
+            font-weight: 600;
+        }
+
+        .register-btn {
+            width: 100%;
+            min-height: 50px;
+            background: #093b78;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            background: #f4a900;
+            color: #082d59;
+            transform: translateY(-2px);
+        }
+
+        .signin-link {
+            color: #0b58a5;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signin-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-footer {
+            color: #8993a2;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 991px) {
+            .banner-section {
+                min-height: 350px;
+                padding: 30px 20px;
+            }
+
+            .logo-box {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 15px;
+            }
+
+            .brand-name {
+                font-size: 28px;
+            }
+
+            .banner-heading {
+                font-size: 23px;
+                margin-top: 20px;
+            }
+
+            .form-section {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .registration-wrapper {
+                padding: 12px;
+            }
+
+            .registration-card {
+                border-radius: 15px;
+            }
+
+            .form-section {
+                padding: 28px 20px;
+            }
+
+            .form-title {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="registration-wrapper">
+    <div class="registration-card">
+
+        <div class="row g-0">
+
+            <!-- Left Side: Bus Image and Logo -->
+            <div class="col-lg-5">
+                <div class="banner-section">
+
+                    <div class="banner-content">
+
+                        <div class="logo-box">
+                            <img
+                                src="{% static 'images/jn-travels-logo.png' %}"
+                                alt="JN Travels Logo">
+                        </div>
+
+                        <div class="brand-name">JN TRAVELS</div>
+
+                        <div class="brand-tagline">
+                            YOUR JOURNEY, OUR PRIORITY
+                        </div>
+
+                        <h2 class="banner-heading">
+                            Safe &amp; Reliable Journeys
+                        </h2>
+
+                        <p class="banner-description">
+                            Create your account with JN Travels and enjoy
+                            convenient bus bookings and comfortable journeys.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Registration Form -->
+            <div class="col-lg-7">
+                <div class="form-section">
+
+                    <h1 class="form-title">Create Account</h1>
+
+                    <p class="form-subtitle">
+                        Enter your details to register with JN Travels.
+                    </p>
+
+                    <!-- Django Error Message -->
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <!-- Registration Form -->
+                    <form method="POST" action="{% url 'registration' %}">
+                        {% csrf_token %}
+
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullname"
+                                name="fullname"
+                                class="form-control"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                class="form-control"
+                                placeholder="Choose a username"
+                                autocomplete="username"
+                                required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-control"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required>
+                        </div>
+
+                        <!-- Mobile Number -->
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">
+                                Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                class="form-control"
+                                placeholder="10-digit mobile number"
+                                pattern="[0-9]{10}"
+                                maxlength="10"
+                                inputmode="numeric"
+                                required>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">
+                                Gender
+                            </label>
+
+                            <select
+                                id="gender"
+                                name="gender"
+                                class="form-select"
+                                required>
+
+                                <option value="" disabled selected>
+                                    Select your gender
+                                </option>
+
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Password with Show/Hide -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                Password
+                            </label>
+
+                            <div class="input-group">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    placeholder="Create a password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary password-toggle"
+                                    onclick="togglePassword('password', this)">
+                                    Show
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password with Show/Hide -->
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">
+                                Confirm Password
+                            </label>
+
+                            <div class="input-group">
+                                <input
+                                    type="password"
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    class="form-control"
+                                    placeholder="Enter password again"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary password-toggle"
+                                    onclick="togglePassword('confirm_password', this)">
+                                    Show
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="register-btn">
+                            Create My Account
+                        </button>
+
+                        <!-- Login Link -->
+                        <p class="text-center text-muted mt-4 mb-0">
+                            Already have an account?
+                            <a href="{% url 'login' %}" class="signin-link">
+                                Sign In
+                            </a>
+                        </p>
+
+                    </form>
+
+                    <div class="form-footer">
+                        © 2026 JN Travels. All rights reserved.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript: Show/Hide Password -->
+<script>
+    function togglePassword(inputId, button) {
+        const passwordInput = document.getElementById(inputId);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            button.textContent = "Hide";
+        } else {
+            passwordInput.type = "password";
+            button.textContent = "Show";
+        }
+    }
+
+    // Check whether both passwords match before submitting
+    document.querySelector("form").addEventListener("submit", function(event) {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert("Password and Confirm Password do not match.");
+        }
+    });
+</script>
+
+</body>
+</html>
+```
