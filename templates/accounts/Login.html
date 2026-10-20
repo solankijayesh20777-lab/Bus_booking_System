@@ -10,7 +10,13 @@
           rel="stylesheet">
 
     <style>
-        .divider:after,
+        .divider:after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
         .divider:before {
             content: "";
             flex: 1;
