@@ -1,12 +1,778 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JN Travels | Home</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #102d50;
+            background: #f4f8ff;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+        .navbar-custom {
+            background: #082d59;
+            padding: 14px 6%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            background: white;
+            padding: 4px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 23px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd166;
+        }
+
+        .nav-btn {
+            background: #ffbd30;
+            color: #082d59 !important;
+            padding: 11px 19px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 85px 7%;
+            color: white;
+            background:
+                linear-gradient(110deg, #06234aee, #0758a5c9),
+                url("https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1800&q=85")
+                center / cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 680px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid #ffffff55;
+            border-radius: 30px;
+            color: #ffcf68;
+            margin-bottom: 20px;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.12;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: #ffbd30;
+        }
+
+        .hero p {
+            color: #e5efff;
+            line-height: 1.9;
+            margin: 22px 0 28px;
+        }
+
+        .btn-yellow {
+            display: inline-block;
+            background: #ffbd30;
+            color: #082d59;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-yellow:hover {
+            background: white;
+            color: #082d59;
+        }
+
+        .btn-outline-white {
+            display: inline-block;
+            padding: 13px 23px;
+            border: 1px solid white;
+            color: white;
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: #082d59;
+        }
+
+        /* SEARCH */
+        .search-wrap {
+            padding: 0 7%;
+            margin-top: -35px;
+            position: relative;
+        }
+
+        .search-card {
+            padding: 27px;
+            background: white;
+            border-radius: 17px;
+            box-shadow: 0 12px 35px #082d5918;
+        }
+
+        .search-card h2 {
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) auto;
+            gap: 14px;
+            align-items: end;
+        }
+
+        .search-grid label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .search-grid input {
+            width: 100%;
+            min-height: 47px;
+            border: 1px solid #dbe4f0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fbfcff;
+        }
+
+        /* COMMON SECTIONS */
+        .section {
+            padding: 75px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .section-title span {
+            color: #e99c00;
+        }
+
+        .section-title p {
+            color: #758298;
+        }
+
+        /* SCROLLING BUS CARDS */
+        .bus-scroll {
+            display: flex;
+            gap: 23px;
+            overflow-x: auto;
+            padding: 8px 3px 22px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: #0b579b #dce8f5;
+        }
+
+        .bus-card {
+            flex: 0 0 310px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e1e9f3;
+            box-shadow: 0 8px 24px #082d590c;
+            scroll-snap-align: start;
+            transition: transform 0.25s;
+        }
+
+        .bus-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bus-image {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .bus-info {
+            padding: 20px;
+        }
+
+        .bus-info h3 {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .bus-info p {
+            color: #718097;
+            font-size: 14px;
+        }
+
+        .bus-badge {
+            display: inline-block;
+            background: #e7f3ff;
+            color: #0758a5;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin: 3px 3px 8px 0;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            font-size: 13px;
+            color: #758298;
+            margin-top: 10px;
+        }
+
+        /* FACILITIES */
+        .facility-section {
+            background: #eaf2fc;
+        }
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .facility-card {
+            text-align: center;
+            background: white;
+            padding: 28px 18px;
+            border-radius: 14px;
+            border: 1px solid #e4ebf5;
+            transition: 0.25s;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px #082d5910;
+        }
+
+        .facility-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .facility-card h3 {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .facility-card p {
+            color: #758298;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+
+        /* WHY US */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .why-card {
+            background: white;
+            border-radius: 13px;
+            padding: 25px;
+            border: 1px solid #e5ecf5;
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .why-card p {
+            color: #758298;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* CONTACT */
+        .contact-section {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .contact-card {
+            padding: 25px;
+            text-align: center;
+            background: #f4f8ff;
+            border-radius: 12px;
+        }
+
+        .contact-card .icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .contact-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .contact-card p {
+            color: #758298;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 45px 7% 20px;
+            background: #061d3a;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 35px;
+            margin-bottom: 30px;
+        }
+
+        footer h3 {
+            font-size: 19px;
+            color: #ffbd30;
+            margin-bottom: 15px;
+        }
+
+        footer p, footer a {
+            color: #c4d2e4;
+            font-size: 14px;
+        }
+
+        footer a {
+            display: block;
+            margin-bottom: 9px;
+        }
+
+        footer a:hover {
+            color: #ffbd30;
+        }
+
+        .copyright {
+            border-top: 1px solid #ffffff25;
+            padding-top: 18px;
+            text-align: center;
+            color: #b7c6d9;
+            font-size: 13px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            .facility-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar-custom {
+                padding: 15px 5%;
+            }
+
+            .navbar-inner {
+                justify-content: center !important;
+            }
+
+            .nav-links {
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            .hero {
+                text-align: center;
+                padding: 65px 6%;
+            }
+
+            .search-wrap {
+                padding: 0 5%;
+            }
+
+            .search-grid,
+            .facility-grid,
+            .contact-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 55px 6%;
+            }
+
+            .section-title h2 {
+                font-size: 27px;
+            }
+
+            .bus-card {
+                flex-basis: 275px;
+            }
+
+            .btn-outline-white {
+                margin: 12px 0 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome Home Page</h1>
-    <a href="/login/">Login</a>
+
+<!-- HEADER -->
+<header class="navbar-custom">
+    <div class="d-flex justify-content-between align-items-center flex-wrap navbar-inner">
+        <a href="{% url 'home' %}" class="brand">
+            <img src="{% static 'images/jn-travels-logo.png' %}"
+                 alt="JN Travels Logo">
+            <span>JN TRAVELS</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#buses">Our Buses</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#contact">Contact</a>
+            <a href="{% url 'login' %}" class="nav-btn">Login</a>
+            <a href="{% url 'registration' %}" class="nav-btn">Register</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-label">YOUR JOURNEY, OUR PRIORITY</div>
+
+        <h1>Travel Smart.<br>Travel <span>Comfortably.</span></h1>
+
+        <p>
+            Welcome to JN Travels. Discover comfortable bus journeys,
+            convenient booking and facilities designed to make your
+            travel experience enjoyable.
+        </p>
+
+        <a href="#search" class="btn-yellow">Find Your Bus →</a>
+        <a href="#buses" class="btn-outline-white">Explore Buses</a>
+    </div>
+</section>
+
+<!-- SEARCH FORM -->
+<section class="search-wrap" id="search">
+    <div class="search-card">
+        <h2>🔎 Search Your Journey</h2>
+
+        <form action="/buses/" method="get" class="search-grid">
+            <div>
+                <label for="from">From City</label>
+                <input type="text" id="from" name="from"
+                       placeholder="Enter departure city" required>
+            </div>
+
+            <div>
+                <label for="to">To City</label>
+                <input type="text" id="to" name="to"
+                       placeholder="Enter destination city" required>
+            </div>
+
+            <div>
+                <label for="date">Journey Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <button type="submit" class="btn-yellow">
+                Search Buses
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- SCROLLING BUS IMAGES -->
+<section class="section" id="buses">
+    <div class="section-title">
+        <h2>Explore Our <span>Buses</span></h2>
+        <p>Scroll horizontally to explore different bus types.</p>
+    </div>
+
+    <div class="bus-scroll">
+
+        <article class="bus-card">
+            <img class="bus-image"
+                 src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80"
+                 alt="Modern passenger bus">
+            <div class="bus-info">
+                <h3>AC Sleeper Bus</h3>
+                <p>Relax on long-distance journeys with sleeper-style comfort.</p>
+                <span class="bus-badge">❄️ Air Conditioning</span>
+                <span class="bus-badge">🛏️ Sleeper</span>
+                <a href="{% url 'login' %}" class="btn-yellow d-block text-center mt-3">
+                    Book Your Journey
+                </a>
+            </div>
+        </article>
+
+        <article class="bus-card">
+            <img class="bus-image"
+                 src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+                 alt="Passenger travel bus">
+            <div class="bus-info">
+                <h3>Luxury Coach</h3>
+                <p>Enjoy a comfortable ride with spacious passenger seating.</p>
+                <span class="bus-badge">💺 Comfortable Seats</span>
+                <span class="bus-badge">❄️ AC</span>
+                <a href="{% url 'login' %}" class="btn-yellow d-block text-center mt-3">
+                    Book Your Journey
+                </a>
+            </div>
+        </article>
+
+        <article class="bus-card">
+            <img class="bus-image"
+                 src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?auto=format&fit=crop&w=800&q=80"
+                 alt="Bus for group travel">
+            <div class="bus-info">
+                <h3>Executive Bus</h3>
+                <p>A convenient option for your next planned trip.</p>
+                <span class="bus-badge">📺 Entertainment</span>
+                <span class="bus-badge">✨ Comfort</span>
+                <a href="{% url 'login' %}" class="btn-yellow d-block text-center mt-3">
+                    Book Your Journey
+                </a>
+            </div>
+        </article>
+
+        <article class="bus-card">
+            <img class="bus-image"
+                 src="https://images.unsplash.com/photo-1509749837427-ac94a2553d0e?auto=format&fit=crop&w=800&q=80"
+                 alt="Bus on a road journey">
+            <div class="bus-info">
+                <h3>Intercity Bus</h3>
+                <p>Plan your next city-to-city journey with ease.</p>
+                <span class="bus-badge">🛣️ Intercity Travel</span>
+                <span class="bus-badge">💧 Water Bottle*</span>
+                <a href="{% url 'login' %}" class="btn-yellow d-block text-center mt-3">
+                    Book Your Journey
+                </a>
+            </div>
+        </article>
+
+    </div>
+
+    <p class="scroll-hint">← Scroll or swipe to see more buses →</p>
+    <p class="text-center text-muted small">
+        *Facilities vary by bus and operator.
+    </p>
+</section>
+
+<!-- FACILITIES -->
+<section class="section facility-section" id="facilities">
+    <div class="section-title">
+        <h2>Our Travel <span>Facilities</span></h2>
+        <p>Make your journey more comfortable and enjoyable.</p>
+    </div>
+
+    <div class="facility-grid">
+        <div class="facility-card">
+            <div class="facility-icon">❄️</div>
+            <h3>Air Conditioning</h3>
+            <p>Comfortable travel in AC-equipped buses.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">📶</div>
+            <h3>Free Wi-Fi</h3>
+            <p>Internet access on buses where available.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">📺</div>
+            <h3>Entertainment TV</h3>
+            <p>Entertainment facilities on selected buses.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">💧</div>
+            <h3>Water Bottle</h3>
+            <p>Complimentary water on selected services.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">💺</div>
+            <h3>Comfortable Seats</h3>
+            <p>Choose from available seating options.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">🎫</div>
+            <h3>Easy Booking</h3>
+            <p>Convenient online booking experience.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">🛡️</div>
+            <h3>Travel Safety</h3>
+            <p>Passenger safety remains important.</p>
+        </div>
+
+        <div class="facility-card">
+            <div class="facility-icon">🎧</div>
+            <h3>Customer Support</h3>
+            <p>Help with bookings and travel queries.</p>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section">
+    <div class="section-title">
+        <h2>Why Choose <span>JN Travels?</span></h2>
+        <p>A simple way to start planning your next journey.</p>
+    </div>
+
+    <div class="why-grid">
+        <div class="why-card">
+            <h3>🚌 Multiple Bus Options</h3>
+            <p>Explore available buses and compare your travel options.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>🎫 Convenient Booking</h3>
+            <p>Access your account and continue to the booking process.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>💙 Passenger Focused</h3>
+            <p>Find journey information and available facilities in one place.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+    <div class="section-title">
+        <h2>Contact <span>Us</span></h2>
+        <p>We are here to help with your travel questions.</p>
+    </div>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <div class="icon">📞</div>
+            <h3>Phone</h3>
+            <p>Add your official phone number.</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">✉️</div>
+            <h3>Email</h3>
+            <p>Add your official support email.</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">📍</div>
+            <h3>Address</h3>
+            <p>Add your business address.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>🚌 JN TRAVELS</h3>
+            <p>
+                Your journey, our priority. Explore bus options and
+                plan your next trip with JN Travels.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#buses">Our Buses</a>
+            <a href="#facilities">Facilities</a>
+            <a href="{% url 'registration' %}">Register</a>
+        </div>
+
+        <div>
+            <h3>Passenger Support</h3>
+            <a href="#contact">Contact Us</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="#search">Search Buses</a>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © 2026 JN Travels. All rights reserved.
+    </div>
+</footer>
+
 </body>
 </html>
+```

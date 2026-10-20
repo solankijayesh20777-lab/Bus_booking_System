@@ -11,6 +11,18 @@ def login_view(request):
         user_name = request.POST.get('username')
         user_pass = request.POST.get('password')
 
+        with connection.cursor() as cursor:
+            select_query = """
+                select id,username from registration where username = %s and password = %s;
+                """
+            cursor.execute(select_query,[user_name,user_pass])
+            user_record = cursor.fetchone()
+
+        if user_record is not None:
+            request.session['user_id'] = user_record[0]
+            request.session['username'] = user_record[1]
+
+
         try:
             user = Login.objects.get(username = user_name, password =user_pass)
         #   if user_name == 'admin' and user_pass == '12345': 
