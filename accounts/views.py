@@ -21,16 +21,22 @@ def login_view(request):
         if user_record is not None:
             request.session['user_id'] = user_record[0]
             request.session['username'] = user_record[1]
+            messages.success(request,"Login Successfully !")
+            return  redirect('home')
 
 
-        try:
-            user = Login.objects.get(username = user_name, password =user_pass)
+        else:
+            context = {
+                'error':"Invalid username and password Plise Try again !"
+            }
+
+        # try:
+            # user = Login.objects.get(username = user_name, password =user_pass)
         #   if user_name == 'admin' and user_pass == '12345': 
-            messages.success(request,"Login Successfuly !")
-            return redirect('home')
-        except Login.DoesNotExist:
-            messages.error(request,"Invalid Username and password")
-            return render (request,'accounts/login.html')
+          
+        # except Login.DoesNotExist:
+            # messages.error(request,"Invalid Username and password")
+            return render (request,'accounts/login.html',context)
     return render(request,'accounts/login.html')
 
 
@@ -55,5 +61,60 @@ def registration_view(request):
 
     return render(request,'accounts/registration.html')
 
+# home_view
+
 def home_view(request):
+    user_logged = request.session.get('username')
+
+    context = {
+        'username':user_logged
+    }
     return render(request,"home.html"   )
+
+
+#  admin add bus moduls
+
+def admin_dashboard__view(request):
+    if request.method == "POST" and 'add_bus' in request.POST:
+        b_name = request.POST.get('bus_name')
+        b_type = request.POST.get('bus_type')
+        b_source = request.POST.get('source')
+        b_dest = request.POST.get('destination')
+        b_time = request.POST.get('departs_time')
+        b_price = request.POST.get('price')
+        b_seats = request.POST.get('total_seats')
+        b_status = request.POST.get('status')
+
+        # insert bus query
+        
+        with connection.cursor() as cursor:
+            insert_query = """
+                    insert into buses(bus_name,bus_type,source,destination, departs_time, price,total_seats,status) 
+                    values (%s,%s,%s,%s,%s,%s,%s,%s)
+                    """
+
+            cursor.execute(insert_query, [b_name,b_type,b_source,b_dest,b_time,b_price,b_seats,b_status])
+        messages.success(request,"New Bus Add Succefully !")
+        return redirect('admin_dashboard')
+
+        #  delete bus query
+    elif request.method == "POST" and 'delete_bus' in request.POST:
+        bus_id = request.POST.get('bus_id')
+        
+        with connection.cursor() as cursor:
+            delete_query = "delete from buses where id = %s;"
+            cursor.execute(delete_query,[bus_id])
+            
+        messages.success(request,"Deleted Bus")
+        return redirect('admin_dashboard')
+  
+    # all bus show 
+        
+    with connection.cursor() as cursor:
+            cursor.execute("select id,bus_name,bus_type,source,destination,departs_time,price,total_seats,status from buses;")
+            buses_list = cursor.fetchall()
+            
+    context = {
+        'buses':buses_list
+    }
+    return render(request,'accounts/admin_dashboard.html',context)
